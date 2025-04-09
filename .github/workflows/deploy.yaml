@@ -1,12 +1,4 @@
-name: Build CI/CD
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  compile:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,5 +12,9 @@ jobs:
       - name: Install dependencies
         run: go mod download
 
-      - name: Compile binary
+      - name: Run Tests
+        run: go test ./main_test.go
+
+      - name: Compile
         run: go build -o myapp
+        needs: Run Tests
